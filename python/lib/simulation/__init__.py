@@ -15,6 +15,13 @@ class Constants(_Constants):
     '''
     Physical constants holder
     '''
+    masse_proton: float
+    masse_neutron: float
+    masse_electron: float
+    charge_proton: float
+    charge_electron: float
+    k: float
+    e: float
 
 class Particule(_Particule):
     '''
@@ -50,12 +57,13 @@ class System(_System):
     `'dt' float`: time delta used to update the simulation state  
     '''
     particules: List[Particule]
+    constants: Constants
 
     def __init__(self, particules: List[Particule], dt: Optional[float]=None):
         dt = -1 if dt is None else dt
         super().__init__(particules, dt)
     
-    def update(dt: Optional[float]=None):
+    def update(self, dt: Optional[float]=None):
         '''
         Update the simulation state  
         Arguments

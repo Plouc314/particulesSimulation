@@ -8,8 +8,8 @@ class TestSimul(unittest.TestCase):
         # test init with 4 floats
         p = simul.Particule(1.23, 4.35, -3.45, 6.677)
 
-        self.assertAlmostEqual(p.x, 1.23, places=3)
-        self.assertAlmostEqual(p.y, 4.35, places=3)
+        self.assertAlmostEqual(p.pos[0], 1.23, places=3)
+        self.assertAlmostEqual(p.pos[1], 4.35, places=3)
         self.assertAlmostEqual(p.q, -3.45, places=3)
 
         try:
@@ -51,8 +51,13 @@ class TestSimul(unittest.TestCase):
         system.update()
 
         p1, p2 = system.particules
-        self.assertEqual(p1.y, -1)
-        self.assertEqual(p2.y, 2)
+        self.assertEqual(p1.pos[1], -1)
+        self.assertEqual(p2.pos[1], 2)
+
+        # test particule reference
+        p = system.particules[0]
+        p.pos = [0, 10]
+        self.assertEqual(system.particules[0].pos, p.pos)
 
 if __name__ == "__main__":
     unittest.main()

@@ -25,6 +25,10 @@ void Particule::applyForce(Vect2D<float> force) {
 void Particule::updateState(float dt) {
     this->v = this->v + this->a * dt;
     this->pos = this->pos + this->v * dt;
+
+    // reset acceleration
+    this->a.x = 0;
+    this->a.y = 0;
 }
 
 void Particule::print(){

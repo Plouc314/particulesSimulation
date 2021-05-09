@@ -32,11 +32,9 @@ PYBIND11_MODULE(cppSimulation, m) {
     )
     .def(py::init<float, float, float, float>())
     .def_readwrite("q", &Particule::q)
-    .def_property("x", &Particule::getX, &Particule::setX)
-    .def_property("y", &Particule::getY, &Particule::setY)
-    .def_property_readonly("pos", &Particule::getListPos)
-    .def_property_readonly("v", &Particule::getListV)
-    .def_property_readonly("a", &Particule::getListA)
+    .def_property("pos", &Particule::getListPos, &Particule::setListPos)
+    .def_property("v", &Particule::getListV, &Particule::setListV)
+    .def_property("a", &Particule::getListA, &Particule::setListA)
     ;
 
     py::class_<System>(
