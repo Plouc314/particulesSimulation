@@ -18,18 +18,34 @@ class Constants {
 
         Constants() {};
 
-        double getK() { return this->_k; };
+        double getK() const { return this->_k; };
         void setK(double k) {
             this->_k = k;
             this->_e = 1/(4 * this->pi * this->_k);
         };
 
-        double getE() { return this->_e; };
+        double getE() const { return this->_e; };
         void setE(double e) {this->_e = e; };
 
     private:
         double _e = 8.85e-12;
         double _k = 1/(4 * this->pi * this->_e);
+};
+
+class MagneticField{
+    public:
+        Vect2D<float> origin;
+        float intensity, dispersion;
+        bool isUniform;
+
+        MagneticField(float x, float y, float intensity, float dispersion = -1, bool isUniform = true);
+        MagneticField(Vect2D<float> origin, float intensity, float dispersion = -1, bool isUniform = true);
+
+        std::vector<float> getListOrigin() const { return {origin.x, origin.y}; }
+
+        float getIntensity(const Vect2D<float> &coordinate) const;
+    private:
+        float defaultDispersion = 20;
 };
 
 class Physics {
@@ -38,8 +54,9 @@ class Physics {
 
         Physics();
 
-        Vect2D<float> getParticulesAttraction(const Particule &p1, const Particule &p2);
-        void handelnParticulesInteraction(Particule &p1, Particule &p2);
+        Vect2D<float> getParticulesAttraction(const Particule &p1, const Particule &p2) const;
+        void handelnParticulesInteraction(Particule &p1, Particule &p2) const;
+        void handelnMagneticInteraction(Particule &p, MagneticField &m) const;
 };
 
 

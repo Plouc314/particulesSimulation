@@ -1,40 +1,26 @@
 from lib.plougame import Interface, Specifications
-from lib.simulation import System, Particule
 
-Interface.setup((1600, 1200), "Simulation")
-
+Interface.setup((3200, 1600), "Simulation")
 FPS = 60
-Specifications.set_fps(FPS)
 
-from gui import ParticuleUI
+from lib.simulation import System, Particule, MagneticField
+import numpy as np
+import pygame, time
+from app import App
+from gui import ParticuleUI, FieldUI
 
-particules = [
-    Particule(( 9, 8), 1, 1),
-    Particule(( 9, 9), -1, 1),
-    Particule(( 9,10), 1, 1),
-    Particule(( 9,11), -1, 1),
-    Particule(( 9,12), 1, 1),
-    Particule((11,10), -3, 1),
-    Particule((13, 8), 1, 1),
-    Particule((13, 9), -1, 1),
-    Particule((13,10), 1, 1),
-    Particule((13,11), -1, 1),
-    Particule((13,12), 1, 1),
-]
+system = System([], dt=1/FPS)
+system.constants.k = 2
+system.set_limits(-2, 34, -2, 16)
 
-particules[5].v = [2, 0.6]
-
-system = System(particules, dt=1/FPS)
-system.constants.k = 1
-
-guis = [ParticuleUI(p) for p in system.particules]
-
+app = App(system)
 
 while Interface.running:
+    
     pressed, events = Interface.run()
+
+    if not app.paused:
+        app.update_system()
     
-    for particule in guis:
-        particule.update()
-        particule.display()
-    
-    system.update()
+    app.react_events(pressed, events)
+    app.display()

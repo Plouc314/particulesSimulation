@@ -94,6 +94,15 @@ class Form:
             # add a weak reference -> don't keep instance alive for nothing
             self._interface._gui_objects.append(weakref.ref(self))
 
+    def set_attr(self, attr: str, value):
+        '''
+        Set an attribute, return a reference to the instance.  
+        To be use like:
+        Form().set_attr(...).set_attr(...)
+        '''
+        setattr(self, attr, value)
+        return self
+
     def get_pos(self, scaled=False) -> [int, int]:
         '''
         Return the unscaled position of the instance.  

@@ -1,0 +1,111 @@
+{
+    "templates": {
+        "label-indicator": {
+            "type": "TextBox",
+            "color": "xlight grey",
+            "font": 30
+        },
+        "basic-button": {
+            "type": "Button",
+            "dim":[160, 60],
+            "font": 30,
+            "color": "light blue"
+        },
+        "option-label": {
+            "type": "TextBox",
+            "color": "xlight grey",
+            "font": 25,
+            "dim": [200, 40]
+        },
+        "option-input": {
+            "type": "InputText",
+            "font": 25,
+            "dim": [140, 40]
+        }
+    },
+    "vars": {
+        "OPTION_POS": [2760, 240],
+        "OX1": 2780,
+        "OX2": 3000,
+        "OY1": 330,
+        "OY2": 390
+    },
+    "header": {
+        "type": "Cadre",
+        "dim": [3200, 200],
+        "pos": [0,0]
+    },
+    "label-time": {
+        "template": "label-indicator",
+        "dim":[300, 60],
+        "pos":[2700, 70]
+    },
+    "label-particules": {
+        "template": "label-indicator",
+        "dim":[400, 60],
+        "pos":[2200, 70]
+    },
+    "button-start": {
+        "template": "basic-button",
+        "pos":[100, 70],
+        "text":"Start"
+    },
+    "button-reset": {
+        "template": "basic-button",
+        "pos":[360, 70],
+        "text":"Reset",
+        "color": "light red"
+    },
+    "button-random": {
+        "template": "basic-button",
+        "pos":[620, 70],
+        "text":"random",
+        "color":"light purple"
+    },
+    "button-edit": {
+        "template": "basic-button",
+        "pos":[880, 70],
+        "text":"Edit"
+    },
+    "button-add-particule": {
+        "template": "basic-button",
+        "dim":[320, 60],
+        "pos":[1140, 70],
+        "text":"Add particule"
+    },
+    "button-add-field": {
+        "template": "basic-button",
+        "dim":[340, 60],
+        "pos":[1560, 70],
+        "text":"Add magnetic field"
+    },
+    "options-panel": {
+        "type": "Cadre",
+        "dim":[400, 230],
+        "pos":"$OPTION_POS"
+    },
+    "option-title": {
+        "type":"TextBox",
+        "dim":[300, 60],
+        "pos":"$OPTION_POS + [50, 10]",
+        "text":"Options"
+    },
+    "option-label1": {
+        "template": "option-label",
+        "pos": "$[OX1, OY1]",
+        "text": "Hello"
+    },
+    "option-label2": {
+        "template": "option-label",
+        "pos": "$[OX1, OY2]",
+        "text": "Hello"
+    },
+    "option-input1": {
+        "template": "option-input",
+        "pos": "$[OX2, OY1]"
+    },
+    "option-input2": {
+        "template": "option-input",
+        "pos": "$[OX2, OY2]"
+    }
+}

@@ -14,16 +14,23 @@ int main() {
 
     System system = System(particules, 1);
     system.physic.constants.setK(1);
+    system.setLimits(0, 10, 0, 10);
 
     system.print();
     system.updateState();
     system.print();
+    system.updateState();
+    system.print();
+    system.updateState();
+    system.print();
+    system.updateState();
+    system.print();
 
-    p1 = system.particules[0];
+    Vect2D<float> origin(2,3);
+    auto magnetic = MagneticField(origin, 10);
 
-    std::vector<float> v = p1.getListV();
-
-    std::cout << v[0] << ' ' << v[1] << std::endl;
+    Vect2D<float> coord(3,3);
+    std::cout << magnetic.getIntensity(coord) << std::endl;
 
     return 0;
 }

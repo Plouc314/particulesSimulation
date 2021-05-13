@@ -7,7 +7,7 @@ class Specifications:
     N_FIRST_FRAMES = 3
 
     # time
-    FPS = 30
+    FPS = 60
     TEXT_DELAY = FPS // 10
     CURSOR_DELAY = FPS // 2
 

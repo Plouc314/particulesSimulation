@@ -1,85 +1,47 @@
-from lib.plougame import Form, C
-from lib.simulation import Particule
+from lib.plougame import Interface, Dimension, Form, Page, C, Font
+import lib.plougame.components as cmps
+from lib.plougame.helper import Delayer
+from lib.simulation import Particule, MagneticField
+from config import Consts
 import numpy as np
-
-### PARTICULE ###
-DIM_PARTICULE = np.array([15, 15])
-C_POSITIVE = C.RED
-C_NEGATIVE = C.BLUE
-SCALE_FACTOR = 50
-
-### MARK ###
-LIFETIME = 1200
+import pygame, time
 
 class ParticuleUI(Form):
 
     def __init__(self, particule: Particule):
-        self._p = particule
-        if self._p.q >= 0:
-            color = C_POSITIVE
+        self.particule = particule
+        if self.particule.q >= 0:
+            color = Consts.C_POSITIVE
         else:
-            color = C_NEGATIVE
+            color = Consts.C_NEGATIVE
 
         # change dimension according to charge
-        dim = DIM_PARTICULE * abs(self._p.q)**0.5
+        dim = Consts.DIM_PARTICULE * abs(self.particule.q)**0.5
 
-        pos = np.array(self._p.pos) * SCALE_FACTOR
+        pos = np.array(self.particule.pos) * Consts.SCALE_FACTOR
 
         super().__init__(dim, pos, color, center=True)
 
-        self.delay = 0
-        self.marks = []
+class FieldUI(Form):
 
-    def update(self):
+    def __init__(self, field: MagneticField, dynamic=False):
+        self.field = field
+        self.dynamic = dynamic
         
-        # update marks
-        old_pos = self.get_center()
-        self._add_mark(old_pos)
-
-        pos = np.array(self._p.pos) * SCALE_FACTOR
-
-        self.set_pos(pos, center=True, scale=True)
-
-    def _add_mark(self, pos):
-        if len(self.marks) != 0:
-            last_pos = self.marks[-1].get_center()
-            
-            if (last_pos == pos).all(): # only add mark if position has changed
-                return
-
-        self.delay += 1
-        if self.delay != 10:
-            return
-        self.delay = 0
-
-        dim = np.array(self.get_dim()) * 0.7
-
-        self.marks.append(Mark(dim, pos, self.get_color()))
-
-    def _update_marks(self):
-        for mark in self.marks[:-1]:
-            if mark.age == LIFETIME:
-                self.marks.remove(mark)
-            else:
-                mark.update()
-
+        if self.dynamic:
+            super().__init__([10,10], self.field.origin, color=C.GREY, center=True)
+    
     def display(self):
-        self._update_marks()
 
-        for mark in self.marks:
-            mark.display()
-        
-        super().display()
+        center = Dimension.scale(self.field.origin) * Consts.SCALE_FACTOR
+        radius = Dimension.scale(self.field.dispersion) * Consts.SCALE_FACTOR
 
+        pygame.draw.circle(
+            Interface.screen,
+            C.LIGHT_GREY,
+            center,
+            radius,
+        )
 
-class Mark(Form):
-
-    def __init__(self, dim, pos, color):
-        super().__init__(dim, pos, color, center=True)
-
-        self.age = 0
-
-    def update(self):
-        self.age += 1
-        dim = self.get_dim() * (1 - self.age / LIFETIME)**2
-        self.set_dim(dim, scale=True)
+        if self.dynamic:
+            super().display()

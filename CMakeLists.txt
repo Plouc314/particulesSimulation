@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.4...3.18)
-project(PhySimulation)
+project(_simulation)
 
 find_package(pybind11 REQUIRED)
 
@@ -15,4 +15,4 @@ file(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/src/*.cpp"
         )
 
-pybind11_add_module(cppSimulation ${all_SRCS})
+pybind11_add_module(_simulation ${all_SRCS})

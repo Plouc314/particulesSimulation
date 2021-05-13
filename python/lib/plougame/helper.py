@@ -34,6 +34,8 @@ def get_pressed_key(pressed):
     
     if pressed[pygame.K_SPACE]:
         return ' '
+    elif pressed[pygame.K_MINUS]:
+        return '-'
     elif pressed[pygame.K_MINUS] and pressed[pygame.K_LSHIFT]:
         return '_'
     elif pressed[pygame.K_QUOTE] and pressed[pygame.K_LSHIFT]:

@@ -1,5 +1,5 @@
 import unittest
-import lib.simulation.cppSimulation as simul
+import lib.simulation._simulation as simul
 
 class TestSimul(unittest.TestCase):
 
@@ -20,6 +20,12 @@ class TestSimul(unittest.TestCase):
             self.fail(str(e))
 
         self.assertIs(type(p.v), list)
+
+    def test_magnetic(self):
+        m = simul.MagneticField(2, 3, 1, True)
+
+        self.assertEqual(m.is_uniform, True)
+        self.assertEqual(m.intensity, 1)
 
     def test_constants(self):
 
@@ -54,10 +60,23 @@ class TestSimul(unittest.TestCase):
         self.assertEqual(p1.pos[1], -1)
         self.assertEqual(p2.pos[1], 2)
 
+        self.assertEqual(2, system.n_particules)
+
         # test particule reference
         p = system.particules[0]
         p.pos = [0, 10]
         self.assertEqual(system.particules[0].pos, p.pos)
+
+        # test elements adding
+        system.clear_elements()
+
+        self.assertEqual(system.n_particules, 0)
+        self.assertEqual(len(system.particules), 0)
+
+        system.add_particule(simul.Particule(0,0,1,1))
+
+        p = system.particules[0]
+        self.assertEqual(p.pos, [0,0])
 
 if __name__ == "__main__":
     unittest.main()
