@@ -8,10 +8,16 @@ import numpy as np
 import pygame, time
 from app import App
 from gui import ParticuleUI, FieldUI
+from config import Consts
 
-system = System([], dt=1/FPS)
+system = System([], dt=1/FPS, flag=System.FLAG_SUM_ONESIDE)
 system.constants.k = 2
-system.set_limits(-2, 34, -2, 16)
+system.set_limits(
+    Consts.MIN_X,
+    Consts.MAX_X,
+    Consts.MIN_Y,
+    Consts.MAX_Y
+)
 
 app = App(system)
 

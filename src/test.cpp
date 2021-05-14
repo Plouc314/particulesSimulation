@@ -14,7 +14,7 @@ int main() {
 
     System system = System(particules, 1);
     system.physic.constants.setK(1);
-    system.setLimits(0, 10, 0, 10);
+    // system.setLimits(0, 10, 0, 10);
 
     system.print();
     system.updateState();
@@ -31,6 +31,8 @@ int main() {
 
     Vect2D<float> coord(3,3);
     std::cout << magnetic.getIntensity(coord) << std::endl;
+
+    std::cout << "number: " << -23 << " -> " << sign(-23) << std::endl;
 
     return 0;
 }

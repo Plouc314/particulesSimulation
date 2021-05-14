@@ -10,17 +10,33 @@ class ParticuleUI(Form):
 
     def __init__(self, particule: Particule):
         self.particule = particule
-        if self.particule.q >= 0:
+
+        # change dimension according to charge
+        dim = Consts.DIM_PARTICULE * abs(self.particule.m)**0.5
+
+        pos = np.array(self.particule.pos) * Consts.SCALE_FACTOR
+        color = self.get_shaded_color()
+
+        super().__init__(dim, pos, color, center=True)
+
+    def get_shaded_color(self):
+        '''Shade the color according to the charge'''
+
+        q = self.particule.q
+
+        # get base color
+        if q >= 0:
             color = Consts.C_POSITIVE
         else:
             color = Consts.C_NEGATIVE
 
-        # change dimension according to charge
-        dim = Consts.DIM_PARTICULE * abs(self.particule.q)**0.5
+        shade = []
+        for c in color:
+            c +=  (Consts.COLOR_MAX_CHARGE - abs(q)) / Consts.COLOR_MAX_CHARGE * Consts.COLOR_LIGHTEST
+            c = min(255, max(0,c))
+            shade.append(c)
 
-        pos = np.array(self.particule.pos) * Consts.SCALE_FACTOR
-
-        super().__init__(dim, pos, color, center=True)
+        return tuple(shade)
 
 class FieldUI(Form):
 

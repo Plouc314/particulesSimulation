@@ -56,3 +56,8 @@ class Vect2D {
             );
         }
 };
+
+template<typename T>
+int sign(const T &x) {
+    return (x > 0) - (x < 0);
+}

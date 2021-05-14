@@ -9,7 +9,8 @@ class Particule {
     public:
         Vect2D<float> pos, v, a;
         float q, m;
-        
+        bool isDead;
+
         Particule(Vect2D<float> &pos, float q, float m);
         Particule(float x, float y, float q, float m);
 

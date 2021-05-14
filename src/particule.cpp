@@ -8,6 +8,7 @@ Particule::Particule(Vect2D<float> &pos, float q, float m) {
     this->m = m;
     this->v = Vect2D<float>(0,0);
     this->a = Vect2D<float>(0,0);
+    this->isDead = false;
 }
 
 Particule::Particule(float x, float y, float q, float m) {
@@ -16,6 +17,7 @@ Particule::Particule(float x, float y, float q, float m) {
     this->m = m;
     this->v = Vect2D<float>(0,0);
     this->a = Vect2D<float>(0,0);
+    this->isDead = false;
 }
 
 void Particule::applyForce(Vect2D<float> force) {

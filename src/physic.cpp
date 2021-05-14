@@ -40,6 +40,12 @@ void Physics::handelnMagneticInteraction(Particule &p, MagneticField &m) const {
     p.applyForce(force);
 }
 
+bool Physics::areNearby(Particule &p1, Particule &p2) const {
+    float dist = (p1.pos - p2.pos).length();
+
+    return (dist < constants.mergeDistanceThreshold);
+}
+
 MagneticField::MagneticField(Vect2D<float> origin, float intensity, float dispersion, bool isUniform) {
     this->origin = origin;
     this->intensity = intensity;

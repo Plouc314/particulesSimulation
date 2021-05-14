@@ -15,6 +15,7 @@ class Constants {
         double chargeProton = 1.602e-19;
         double chargeElectron = -1.602e-19;
         float defaultDt = 0.1;
+        float mergeDistanceThreshold = 0.1;
 
         Constants() {};
 
@@ -57,6 +58,7 @@ class Physics {
         Vect2D<float> getParticulesAttraction(const Particule &p1, const Particule &p2) const;
         void handelnParticulesInteraction(Particule &p1, Particule &p2) const;
         void handelnMagneticInteraction(Particule &p, MagneticField &m) const;
+        bool areNearby(Particule &p1, Particule &p2) const;
 };
 
 

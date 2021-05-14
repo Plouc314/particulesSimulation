@@ -84,13 +84,16 @@ class App(Page):
         
         self.reset()
         
-        n_particule = np.random.randint(60, 120)
+        n_particule = np.random.randint(
+            Consts.MIN_PARTICULES,
+            Consts.MAX_PARTICULES
+        )
 
         taken_positions = []
 
         for i in range(n_particule):
-            x = np.random.randint(32)
-            y = np.random.randint(2, 16)
+            x = np.random.randint(Consts.MIN_X, Consts.MAX_X)
+            y = np.random.randint(Consts.MIN_Y, Consts.MAX_Y)
 
             if (x,y) in taken_positions:
                 continue
@@ -102,11 +105,14 @@ class App(Page):
             p = Particule([x,y], q, m)
             self.system.add_particule(p)
 
-        n_fields = np.random.randint(0, 5)
+        n_fields = np.random.randint(
+            Consts.MIN_FIELDS,
+            Consts.MAX_FIELDS
+        )
 
         for i in range(n_fields):
-            x = np.random.randint(32)
-            y = np.random.randint(2, 16)
+            x = np.random.randint(Consts.MIN_X, Consts.MAX_X)
+            y = np.random.randint(Consts.MIN_Y, Consts.MAX_Y)
 
             intensity = np.random.uniform(-5, 5)
             dispersion = np.random.uniform(1, 5)

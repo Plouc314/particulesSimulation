@@ -80,10 +80,13 @@ class System(_System):
     magnetic_fields: List[MagneticField]
     constants: Constants
     n_particules: int
+    FLAG_SUM: int = 0
+    FLAG_SUM_ONESIDE: int = 1
 
-    def __init__(self, particules: List[Particule], dt: Optional[float]=None):
+    def __init__(self, particules: List[Particule], dt: Optional[float]=None, flag: Optional[int]=None):
         dt = -1 if dt is None else dt
-        super().__init__(particules, dt)
+        flag = 0 if flag is None else flag
+        super().__init__(particules, dt, flag)
     
     def update(self, dt: Optional[float]=None):
         '''
@@ -113,3 +116,9 @@ class System(_System):
         Add a magnetic field to the system
         '''
         super().add_magnetic_field(field)
+    
+    def set_limits(self, min_x: float, max_x: float, min_y: float, max_y: float):
+        '''
+        Set the limits of the simulation
+        '''
+        super().set_limits(min_x, max_x, min_y, max_y)

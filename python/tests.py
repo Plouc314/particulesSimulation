@@ -57,8 +57,9 @@ class TestSimul(unittest.TestCase):
         system.update()
 
         p1, p2 = system.particules
-        self.assertEqual(p1.pos[1], -1)
-        self.assertEqual(p2.pos[1], 2)
+        y_coords = (p1.pos[1], p2.pos[1])
+        self.assertIn(-1, y_coords)
+        self.assertIn(2, y_coords)
 
         self.assertEqual(2, system.n_particules)
 

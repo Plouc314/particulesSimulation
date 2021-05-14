@@ -26,6 +26,7 @@ PYBIND11_MODULE(_simulation, m) {
     )
     .def(py::init<float, float, float, float>())
     .def_readwrite("q", &Particule::q)
+    .def_readwrite("m", &Particule::m)
     .def_property("pos", &Particule::getListPos, &Particule::setListPos)
     .def_property("v", &Particule::getListV, &Particule::setListV)
     .def_property("a", &Particule::getListA, &Particule::setListA)
@@ -44,9 +45,11 @@ PYBIND11_MODULE(_simulation, m) {
     py::class_<System>(
         m, "System"
     )
-    .def(py::init<std::vector<Particule>&, float>(), py::arg("particules"), py::arg("dt") = -1)
+    .def(py::init<std::vector<Particule>&, float, int>(), py::arg("particules"), py::arg("dt") = -1, py::arg("flag") = 0)
     .def_readonly("particules", &System::particules)
     .def_readonly("magnetic_fields", &System::magneticFields)
+    .def_readonly("FLAG_SUM", &System::FLAG_SUM)
+    .def_readonly("FLAG_SUM_ONESIDE", &System::FLAG_SUM_ONESIDE)
     .def_property_readonly("constants", &System::constants)
     .def_property_readonly("n_particules", &System::getNumberParticules)
     .def("set_limits", &System::setLimits)
